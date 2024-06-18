@@ -1,7 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using CleanArchitecture.Domain.Constants;
+﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,15 +26,11 @@ public class ApplicationDbContextInitialiser
 {
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
     {
         _logger = logger;
         _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
     }
 
     public async Task InitialiseAsync()
@@ -67,43 +61,68 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        // Default roles
-        var administratorRole = new IdentityRole(Roles.Administrator);
-
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        try
         {
-            await _roleManager.CreateAsync(administratorRole);
+            await SeedCategoriesAsync();
+            await SeedSubCategoriesAsync();
         }
-
-        // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
-
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        catch (Exception ex)
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
-            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
-            {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
-            }
+            _logger.LogError(ex, "An error occurred while seeding the database.");
+            throw;
         }
+        await _context.SaveChangesAsync();
+    }
 
-        // Default data
-        // Seed, if necessary
-        if (!_context.TodoLists.Any())
+    /// <summary>
+    /// To Seed Categories data
+    /// </summary>
+    /// <returns></returns>
+    private async Task SeedCategoriesAsync()
+    {
+        if (!_context.Categories.Any())
         {
-            _context.TodoLists.Add(new TodoList
-            {
-                Title = "Todo List",
-                Items =
-                {
-                    new TodoItem { Title = "Make a todo list 📃" },
-                    new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
-                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
-                }
-            });
+            var categoryData = new List<Categories>()
+        {
+            new Categories() { Name = "Customers", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+            new Categories() { Name = "Employees", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+            new Categories() { Name = "Society", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+            new Categories() { Name = "Products And Services", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+            new Categories() { Name = "Management", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+            new Categories() { Name = "Fairness", IsDeleted = false, Created = DateTime.Now, CreatedBy ="Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin",},
+        };
+            _context.Categories.AddRange(categoryData);
+            await _context.SaveChangesAsync(CancellationToken.None);
+        }
+    }
 
-            await _context.SaveChangesAsync();
+    /// <summary>
+    /// To Seed SubCategories data
+    /// </summary>
+    /// <returns></returns>
+    private async Task SeedSubCategoriesAsync()
+    {
+        if (!_context.SubCategories.Any())
+        {
+            var subCategoryData = new List<SubCategories>()
+        {
+            new() { Name = "Customer Focus", CategoryId = 1, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Team Work", CategoryId = 2, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Communication Skills", CategoryId = 2, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Cost Consciousness", CategoryId = 3, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Job Knowledge/Technical Skills", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Work Attitde", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Quality of Work", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Quantity of Work", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Safety", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Process Improvement", CategoryId = 4, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Problem Solving", CategoryId = 5, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Supervision / Motivation of Staff", CategoryId = 5, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Attendance/Punctuality", CategoryId = 6, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+            new() { Name = "Dependability/Responsibility", CategoryId = 6, Created = DateTime.Now, CreatedBy = "Admin", LastModified = DateTime.Now, LastModifiedBy = "Admin", IsDeleted = false },
+        };
+            _context.SubCategories.AddRange(subCategoryData);
+            await _context.SaveChangesAsync(CancellationToken.None);
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.Serialization;
 using AutoMapper;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using CleanArchitecture.Application.Category.Queries.GetAllCategories;
+using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Domain.Entities;
 using NUnit.Framework;
 
@@ -17,8 +14,8 @@ public class MappingTests
 
     public MappingTests()
     {
-        _configuration = new MapperConfiguration(config => 
-            config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
+        _configuration = new MapperConfiguration(config =>
+            config.AddProfile<MappingProfile>());
 
         _mapper = _configuration.CreateMapper();
     }
@@ -30,11 +27,8 @@ public class MappingTests
     }
 
     [Test]
-    [TestCase(typeof(TodoList), typeof(TodoListDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-    [TestCase(typeof(TodoList), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
+    [TestCase(typeof(Categories), typeof(CategoryDto))]
+    [TestCase(typeof(SubCategories), typeof(SubCategoryDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
@@ -48,6 +42,6 @@ public class MappingTests
             return Activator.CreateInstance(type)!;
 
         // Type without parameterless constructor
-        return RuntimeHelpers.GetUninitializedObject(type);
+        return FormatterServices.GetUninitializedObject(type);
     }
 }
