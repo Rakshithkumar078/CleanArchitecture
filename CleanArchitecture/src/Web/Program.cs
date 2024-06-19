@@ -31,7 +31,10 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 
 var app = builder.Build();
 
-await app.InitialiseDatabaseAsync();
+if (Environment.GetEnvironmentVariable("RUN_MIGRATIONS") == "true")
+{
+    await app.InitialiseDatabaseAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

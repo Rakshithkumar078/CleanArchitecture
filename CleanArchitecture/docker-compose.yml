@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  web:
+    container_name: featurebasedweb
+    image: ${DOCKER_REGISTRY-}web
+    ports:
+        - "5000:5000"
+        - "5001:5001"
+    build:
+      context: .
+      dockerfile: src/Web/Dockerfile
+    environment:
+      - RUN_MIGRATIONS=${RUN_MIGRATIONS:-true}
+    depends_on:
+        - clean.db
+    networks:
+        - feature-based-network
+    entrypoint: ["/bin/sh", "-c", "while ! nc -z clean.db 1433; do sleep 1; done; if [ \"$RUN_MIGRATIONS\" = \"true\" ]; then dotnet CleanArchitecture.Web.dll migrate; else dotnet CleanArchitecture.Web.dll; fi"]
+
+  clean.db:
+    container_name: featurebasedwebdb
+    environment:
+      - POSTGRES_DB=cleanarchitecturedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - cleanarchitecturedb-db-volume:/var/lib/postgressql/data
+    networks:
+        - feature-based-network
+
+  clientweb:
+    image: node:latest
+    container_name: client.web
+    build:
+      context: ./src/Web/ClientApp
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+    ports:
+      - "44447:44447"
+    volumes:
+      - ./src/Web/ClientApp:/app
+      - /app/node_modules
+      - ./src/Web/ClientApp/.env.development:/app/.env.development
+
+networks:
+  feature-based-network:
+
+volumes:
+  cleanarchitecturedb-db-volume:
+    # external: true
+    driver: local
+  
