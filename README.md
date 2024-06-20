@@ -1,30 +1,25 @@
-# Clean Architecture Template
+## Docker
+Docker commands to run the application:
 
-Clean Architecture with dot net and react
-
-## Getting Started
-
-The following prerequisites are required to build and run the solution:
-
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (latest version)
-- [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
-
-The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
-
+Command to run the Client app in specific port (here using 44447 you can choose your port):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.5
+docker run -d -p 44447:44447 --name node --network backend-network node:latest npm start -- --host
 ```
 
-Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
-
-To create a SPA with React and ASP.NET Core:
-
-```bash
-dotnet new ca-sln -cf React -o YourProjectName
+Command to run the PostgreSQL Database in specific port (here using 5432 you can choose your port with some environment variable like server name, db name, username and password): 
+```
+docker run -d -p 5432:5432 --name clean.db --network backend-network -e POSTGRES_DB=cleanarchitecturedb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:latest
 ```
 
-If you already have an existing React app and want to add TypeScript manually, install the necessary dependencies:
+Command to run the Backend application in specific port (here using 5001 for https & 5000 for http you can choose your port with some environment variable like Run Migrations - value true means migrations will takeplace and for https need to copy certificates as well for that you need to download the certificate first and here is the link): 
+```
+dotnet dev-certs https -ep $HOME/.aspnet/https/aspnetapp.pfx -p Yourconvenientpassword
+```
 
-```bash
-npm install --save typescript @types/react @types/react-dom
+```
+dotnet dev-certs https --trust
+```
+
+```
+docker run -d -p 5000:5000 -p 5001:5001 --name web --network backend-network -e ASPNETCORE_HTTP_PORTS=5000 -e ASPNETCORE_HTTPS_PORTS=5001 -e RUN_MIGRATIONS=true -e ASPNETCORE_ENVIRONMENT=Development -e ASPNETCORE_Kestrel__Certificates__Default__Password="Your password" -e ASPNETCORE_Kestrel__Certificates__Default__Path="/https/aspnetapp.pfx" -v "C:/httpcert:/https:ro" web:latest
 ```
