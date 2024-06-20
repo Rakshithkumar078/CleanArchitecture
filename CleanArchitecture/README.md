@@ -1,71 +1,25 @@
-﻿# CleanArchitecture
+﻿## Docker
+Docker commands to run the application:
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/CleanArchitecture) version 8.0.5.
-
-## Build
-
-Run `dotnet build -tl` to build the solution.
-
-## Run
-
-To run the web application:
-
-```bash
-cd .\src\Web\
-dotnet watch run
+Command to run the Client app in specific port (here using 44447 you can choose your port):
+```
+docker run -d -p 44447:44447 --name node --network backend-network node:latest npm start -- --host
 ```
 
-Navigate to https://localhost:5001. The application will automatically reload if you change any of the source files.
-
-## Code Styles & Formatting
-
-The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.
-
-## Code Scaffolding
-
-The template includes support to scaffold new commands and queries.
-
-Start in the `.\src\Application\` folder.
-
-Create a new command:
-
+Command to run the PostgreSQL Database in specific port (here using 5432 you can choose your port with some environment variable like server name, db name, username and password): 
 ```
-dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
+docker run -d -p 5432:5432 --name clean.db --network backend-network -e POSTGRES_DB=cleanarchitecturedb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:latest
 ```
 
-Create a new query:
-
+Command to run the Backend application in specific port (here using 5001 for https & 5000 for http you can choose your port with some environment variable like Run Migrations - value true means migrations will takeplace and for https need to copy certificates as well for that you need to download the certificate first and here is the link): 
 ```
-dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
-```
-
-If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
-
-```bash
-dotnet new install Clean.Architecture.Solution.Template::8.0.5
+dotnet dev-certs https -ep $HOME/.aspnet/https/aspnetapp.pfx -p Yourconvenientpassword
 ```
 
-## Test
-
-The solution contains unit, integration, functional, and acceptance tests.
-
-To run the unit, integration, and functional tests (excluding acceptance tests):
-```bash
-dotnet test --filter "FullyQualifiedName!~AcceptanceTests"
+```
+dotnet dev-certs https --trust
 ```
 
-To run the acceptance tests, first start the application:
-
-```bash
-cd .\src\Web\
-dotnet run
 ```
-
-Then, in a new console, run the tests:
-```bash
-cd .\src\Web\
-dotnet test
+docker run -d -p 5000:5000 -p 5001:5001 --name web --network backend-network -e ASPNETCORE_HTTP_PORTS=5000 -e ASPNETCORE_HTTPS_PORTS=5001 -e RUN_MIGRATIONS=true -e ASPNETCORE_ENVIRONMENT=Development -e ASPNETCORE_Kestrel__Certificates__Default__Password="Your password" -e ASPNETCORE_Kestrel__Certificates__Default__Path="/https/aspnetapp.pfx" -v "C:/httpcert:/https:ro" web:latest
 ```
-
-## Help
-To learn more about the template go to the [project website](https://github.com/jasontaylordev/CleanArchitecture). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.

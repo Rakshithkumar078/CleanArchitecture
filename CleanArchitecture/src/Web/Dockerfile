@@ -11,13 +11,13 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
-COPY ["src/Web/Web.csproj", "/Web/"]
-COPY ["src/Application/Application.csproj", "/Application/"]
-COPY ["src/Domain/Domain.csproj", "/Domain/"]
-COPY ["src/Infrastructure/Infrastructure.csproj", "/Infrastructure/"]
-RUN dotnet restore "./Web/Web.csproj"
+COPY ["src/Web/Web.csproj", "src/Web/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Domain/Domain.csproj", "src/Domain/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
+RUN dotnet restore "./src/Web/Web.csproj"
 COPY . .
-WORKDIR "/src/Web"
+WORKDIR "/src/src/Web"
 RUN dotnet build "./Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
