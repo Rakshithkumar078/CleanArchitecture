@@ -13,13 +13,10 @@ RUN npm install --f
 # Bundle app source inside the Docker image
 COPY . .
  
-# Build the app for production
-RUN npm run build
+# Build the app for production# Use ARG to define the build-time environment variable
+#ARG BUILD_ENV
+#RUN case "$BUILD_ENV" in "ci") npm run build:ci ;; "qa") npm run build:qa ;; "staging") npm run build:staging --staging ;; "prod") npm run build:prod ;; *) npm run build ;; esac
  
-# # Install `serve` to run the application
-# RUN npm install -g serve
- 
-# The port that your container will run on
-EXPOSE 44447
+#EXPOSE 44447
 
 CMD ["npm", "start"]

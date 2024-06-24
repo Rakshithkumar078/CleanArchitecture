@@ -57,7 +57,7 @@ const EditCategory = () => {
         <>
             <div className="panel-body">
                 <div className="header-panel d-flex justify-content-between">
-                    <h1>Edit Category {"hi"}</h1>
+                    <h1>Edit Category</h1>
                     <Link className="fs-5 fw-bold text-blue-800 align-self-center"
                         type="button"
                         to="/category">
