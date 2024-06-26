@@ -55,9 +55,13 @@
     "webpack": "5.81.0"
   },
   "scripts": {
-    "prestart": "node aspnetcore-https && node aspnetcore-react",
-    "start": "rimraf ./build && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "dev": "react-scripts start",
+    "build:ci": "dotenv -e .env.ci npm run start",
+    "build:qa": "dotenv -e .env.qa npm run start",
+    "build:staging": "dotenv -e .env.staging npm run start",
+    "build:prod": "dotenv -e .env.prod npm run start",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
