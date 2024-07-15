@@ -1,0 +1,106 @@
+name: dockercompose5119012649248172311
+services:
+  clean.db:
+    container_name: featurebasedwebdb
+    environment:
+      POSTGRES_DB: cleanarchitecturedb
+      POSTGRES_HOST: clean.db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    networks:
+      feature-based-network: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: cleanarchitecturedb-db-volume
+        target: /var/lib/postgressql/data
+        volume: {}
+  clientweb:
+    build:
+      context: C:\Workspace\Pearlarc\ProtEquity\ProtEquity\CleanArchitecture\src\Web\ClientApp
+      dockerfile: Dockerfile
+    container_name: client.web
+    depends_on:
+      web:
+        condition: service_started
+        required: true
+    image: node:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 44447
+        published: "44447"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Workspace\Pearlarc\ProtEquity\ProtEquity\CleanArchitecture\src\Web\ClientApp
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        target: /app/node_modules
+        volume: {}
+      - type: bind
+        source: C:\Workspace\Pearlarc\ProtEquity\ProtEquity\CleanArchitecture\src\Web\ClientApp\.env.development
+        target: /app/.env.development
+        bind:
+          create_host_path: true
+  web:
+    build:
+      context: C:\Workspace\Pearlarc\ProtEquity\ProtEquity\CleanArchitecture
+      dockerfile: src/Web/Dockerfile
+    container_name: featurebasedweb
+    depends_on:
+      clean.db:
+        condition: service_started
+        required: true
+    entrypoint:
+      - /bin/sh
+      - -c
+      - while ! nc -z clean.db 1433; do sleep 1; done; if [ "" = "true" ]; then dotnet CleanArchitecture.Web.dll migrate; else dotnet CleanArchitecture.Web.dll; fi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "5000"
+      ASPNETCORE_HTTPS_PORTS: "5001"
+      RUN_MIGRATIONS: "true"
+    image: web
+    networks:
+      feature-based-network: null
+    ports:
+      - mode: ingress
+        target: 5000
+        published: "5000"
+        protocol: tcp
+      - mode: ingress
+        target: 5001
+        published: "5001"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\Naveen.Kumar\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\Naveen.Kumar\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose5119012649248172311_default
+  feature-based-network:
+    name: dockercompose5119012649248172311_feature-based-network
+volumes:
+  cleanarchitecturedb-db-volume:
+    name: dockercompose5119012649248172311_cleanarchitecturedb-db-volume
+    driver: local
