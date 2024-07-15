@@ -5427,11 +5427,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj",
       "projectName": "CleanArchitecture.Infrastructure",
-      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Naveen.Kumar\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Infrastructure\\obj\\",
+      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "configFilePaths": [
@@ -5449,8 +5449,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Application\\Application.csproj": {
-              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Application\\Application.csproj"
+            "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Application\\Application.csproj": {
+              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Application\\Application.csproj"
             }
           }
         }

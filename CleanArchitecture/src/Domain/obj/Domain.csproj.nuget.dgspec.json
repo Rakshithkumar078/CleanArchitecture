@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj": {}
+    "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj": {
+    "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj",
         "projectName": "CleanArchitecture.Domain",
-        "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj",
+        "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Naveen.Kumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\obj\\",
+        "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "centralPackageVersionsManagementEnabled": true,
         "configFilePaths": [

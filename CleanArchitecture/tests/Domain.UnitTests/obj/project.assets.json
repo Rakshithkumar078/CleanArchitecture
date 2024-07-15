@@ -2261,11 +2261,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
+      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
       "projectName": "CleanArchitecture.Domain.UnitTests",
-      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
+      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
       "packagesPath": "C:\\Users\\Naveen.Kumar\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\tests\\Domain.UnitTests\\obj\\",
+      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\tests\\Domain.UnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "configFilePaths": [
@@ -2283,8 +2283,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Domain\\Domain.csproj"
+            "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Domain\\Domain.csproj"
             }
           }
         }

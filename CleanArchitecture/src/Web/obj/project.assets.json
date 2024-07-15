@@ -7154,11 +7154,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Web\\Web.csproj",
+      "projectUniqueName": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Web\\Web.csproj",
       "projectName": "CleanArchitecture.Web",
-      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Web\\Web.csproj",
+      "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Web\\Web.csproj",
       "packagesPath": "C:\\Users\\Naveen.Kumar\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Web\\obj\\",
+      "outputPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Web\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "configFilePaths": [
@@ -7176,11 +7176,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Application\\Application.csproj": {
-              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Application\\Application.csproj"
+            "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Application\\Application.csproj": {
+              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Application\\Application.csproj"
             },
-            "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\ProtEquity\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Workspace\\Pearlarc\\ProtEquity\\CleanArchitecture\\CleanArchitecture\\src\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
